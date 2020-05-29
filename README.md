@@ -1,0 +1,2 @@
+# REDIS
+basics of redis 
