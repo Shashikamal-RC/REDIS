@@ -1,0 +1,43 @@
+
+COMMAND:-
+    Returns details about all redis commands
+
+    each top level results contains 6 subresults
+        - Command name
+        - Command arity = Number of parameters
+        - Nested array reply of command flags
+        - Position of first key in arg list
+        - Position of last key in arg list
+        - Step count for location or repeating keys
+
+            COMMAND
+
+COMMAND COUNT :-
+    - returns the number  of available commands onthe server
+
+CLIENT LIST:-
+    - Returns info and stats on the clients connected to a server
+
+        ID
+        Name
+        flags
+        Age
+        Address/port
+        Last Command
+        Idle Time
+
+CLIENT SETNAME :-
+    - Assigns name to a current client connections
+    - Displayed in the output of the client list
+
+        CLIENT SETNAME clientname
+
+CLIENT KILL :-
+    - Closes up the given connection 
+    - Can use address/port ot ID
+
+        CLIENT KILL 127.0.0.1:  portnum
+        CLIENT KILL id
+
+
+

@@ -1,0 +1,81 @@
+
+HASHES :-
+    - Maps between string fields and string value
+        map in redis works similar to json
+    - Perfect to represent objects
+    - Very compact 
+
+    HSET :-
+        - Sets a fields in hash
+        - if a key doesn't exists,a new key holding a hash is created. if field exists in the hash  
+            it is overwritten
+
+            1 is returned if the field is new in the hash and the value was set
+            0 is returned id the field already  exists in the hash and the value was updated
+
+            HSET user1 name "John"
+
+    HMSET :-
+        - sets multiple fields to there respective values
+        - overwrite any existing fields in the hash
+
+            HMSET user2 name "JOHN" email "john@gmail.com"
+
+    HGET :-
+        - gets a value associated with a field in the hash
+        - returns value or nil if the filed is not present
+
+            HGET user1 "John"
+
+    HMGET :-
+        - Returns values associated with multiple fields in the hash
+        - For every field that does not exists nil will be returned
+        
+            HMGET user1 name age
+
+    HGETALL :-
+        - gets all fields and values in the hash
+        - Returns every field name followed by its value
+
+            HGETALL user1
+
+    HDEL :-
+        - Removes speci field from tha hash
+        - specified field that does not exists are ignored
+        - Returns the number of fields that were removed from the hash
+
+            HDEL user2 age
+
+    HEXISTS :-
+        - Check for existing field in the hash
+        - Returns 1 if the hash contains the field and 0 if it does not
+
+            HEXISTS user3 name
+
+    HINCRBY :-
+        - incremenmts the number stored in the hash
+        - if key doesnot exists, a new key with the hash is created
+        - if field does not exists the value is set to 0 before operation is performed
+
+            HINCRBY user3 age 3
+
+    HKEYS :-
+        - Returns all the field name in the hash
+            HKEYS user2
+
+    HLEN :-
+        - Returns the number of fields contained in the hash
+        - Returns 0 is key doen not exists
+
+            HLEN user2
+    
+    HVALS :-
+        - Returns all the values in the hash
+            HVALS user2
+        
+    HSTRLEN :-
+        - Returns the string length of the vale associated with the field in the hash
+        - if the key or field do not exist, 0is returned
+
+            HSTRLEN user1 name
+    

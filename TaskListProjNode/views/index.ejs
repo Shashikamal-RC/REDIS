@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>Redis in Node</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" 
+              crossorigin="anonymous">
+        <style>
+            .del:checked + span {
+                color: red;
+            }
+            .tasklist{
+                list-style: none;
+            }
+            .container{
+                padding: 20px;
+            }
+            .list-group{
+                display:inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">RedisTasks</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                
+                </ul>
+            </div>
+        </nav>
+          
+        <div class="container">
+
+            <div class="row">
+                <div class="col-6">
+                    <form class="form-inline" method="POST" action="/task/add">
+                        <div class="form-group mb-2">
+                            <label for="staticEmail2">Add Task : </label>
+                        </div>
+                        <div class="form-group mx-sm-3 mb-2">
+                            <input class="form-control" type="text" name="task" placeholder="Add Task"/>
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <form method="POST" action="/task/delete">
+                        <ul class="list-group"> 
+                            <% tasks.forEach((task) => { %>
+                                <li class="list-group-item"> 
+                                    <label>
+                                        <input type="checkbox" name="tasks" class="del" value="<%= task %>"/>
+                                        <span><%= task %></span>
+                                    </label>        
+                                </li>
+                            <% }) %>
+                        </ul>
+                        <button type="submit" class="btn btn-primary mb-2">Remove</button>
+                    </form>
+                </div>
+            </div>
+            <!-- <h3><%= title %></h3> -->
+            <hr>
+
+            <h3>Edit Next Call</h3>
+            <hr>
+            <div class="row">
+                <div class="col-8">
+                    <div class="well">
+                        <form method="POST" action="/call/add">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Contact Name</label>
+                              <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Company</label>
+                              <input type="text" name="company" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Phone</label>
+                                <input type="text" name="phone" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Day & Time</label>
+                                <input type="text" name="time" class="form-control" id="exampleInputPassword1">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            Next Bussiness Call
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Name : <%= call.name %></li>
+                            <li class="list-group-item">Company : <%= call.company %></li>
+                            <li class="list-group-item">Phone : <%= call.phone %> </li>
+                            <li class="list-group-item">TIme : <%= call.time %> </li>
+                        </ul>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+

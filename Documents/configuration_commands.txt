@@ -1,0 +1,37 @@
+
+configuration:-
+
+    CONFIG GET:- 
+        - used to get configuration parameters of a running Redis server
+        - Since redis 2.6, all configuration parameters are Supported
+        - Takes single argument
+
+            CONFIG GET port - gets the port configuration value
+            CONFIG GET * - list all Supported config values
+
+    CONFIG SET :-
+        - Used to reconfigure server at runtime without having to do a restart
+
+            CONFIG SET config_option "newvalue"
+
+    INFO :-
+        - Returns information and statistics about a server.
+        - Optional parameters to select specified section 
+
+            server | clients | memory | persistence | stats | replication | cpu
+            commandstats | cluster | keyspace | all | default
+
+        INFO
+        INFO server
+
+    CONFIG RESETSTAT:-
+        - resets statistics reported using the INFO Command
+
+            keyspace hits
+            keyspace misses
+            Number of commands processed
+            Number of connections recieved
+            Number of expaired keys
+            Number of rejected connections
+
+                CONFIG RESETSTAT

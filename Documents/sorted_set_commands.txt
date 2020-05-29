@@ -1,0 +1,75 @@
+
+Sorted SETS:-
+    - since sets are Unordered , they can pose problem to some projects
+    - Sorted sets are created to solve the issue
+    - Every member is associated with a "score"
+    - can access data very quickly
+    - Like sets, elements may appear only once
+
+        SCORE properties:-
+            - score is required
+            - Must be a float/number
+            - Score of 500 = 500.00
+            - Score is not unique, values are
+
+        COMMANDS :-
+            ZADD:-
+                - Adds given values to a sorted set
+                    ZADD people 1960 "John" (1960 is score)
+
+            ZREM:-
+                - Remove values from sorted set
+                    ZREM people "John"
+
+            ZRANGE :- 
+                - Works like LRANGE for lists. Fetches values with in the specified range. Ordered lowest 
+                    to the highest by score
+            
+            ZREVRANGE :-
+                - Same as ZRANGE except order a higher to lower
+
+
+                ZRANGE people 0 -1
+                ZRANGE prople 2 5
+                ZREVRANGE people 0 -1
+
+            ZRANGEBYSCORE :-
+                - works like ZRANGE but uses range of scores values
+                
+                ZRANGEBYSCORE people 1960 1990 
+                    gets people with a score between 1960 to 1990
+
+            ZRANK :-
+                - returns the rank of the members with scores ordered from high to low 
+                - Ranks is 0-based
+
+            ZREVRANK :-
+                - Gets the rank of the members in the reverse order
+
+                ZRANK prople "John"
+                ZREVRANK people "John"
+
+            ZCARD :-
+                - Returns the number of members in the sorted set
+                    ZCARD people
+
+            ZCOUNT :-
+                - Returns the number of elements in the sorted set at key with a score between min and max
+                    ZCOUNT people(1,3)
+
+            ZINCRBY :-
+                - increments the score of a member in the sorted set
+                - if the member is not exists, it will be added with increment as its score
+                - The score value should be a string representation of a numeric value, add 
+                    accepts double precision floating point numbers. It is possible to  provide a 
+                    negative value  to decrement the score
+
+                    ZINCRBY people 1 "John"
+
+            ZSCORE :-
+                - Returns the score of a member
+                - if member is not exists nil is returned
+
+                    ZSCORE people "John"
+
+            

@@ -1,0 +1,60 @@
+
+SCAN and MATCH :- 
+
+    - Iterates the set of keys in the database
+    - Returns only the small amount per call
+    - Can be used in production because it performs well
+    - Takes Cursor / position as a parameter
+
+    Cursor based iteration :-
+         
+         - The server returns an updated cursor with every call to the command
+         - This can be used in the argument of the next call
+         - Iteration starts when cursor is set to 0
+         - Terminates when cursor returned from server is 0
+
+         SCAN 0
+
+    SCAN Gaurantees:-
+        - Full iteration will retrieve all elements that were present in the 
+            collection from the start to the end.
+        - Never returns any elements that was NOT present in the collection
+            from the start to finish
+
+    COUNT options :-
+        - COUNT can be defined in a SCAN command to overwrite the default returned per iteration
+        - The user can specify the amount of work done at every call
+        - Default COUNT is 10
+        - COUNT can be changed from one iteration to the next 
+
+            SCAN COUNT 20
+
+    MATCH Option:-
+        - Iterate elements that match a pattern specified
+
+            SCAN 0 MATCH something
+            SCAN 0 MATCH k*
+
+
+    Scan with other Data Types:-
+        - SSCAN = used with sets, Returns set of set members
+        - HSCAN = used with hashes, Returns array of elements with a field and value
+        - ZSCAN = used with sorted sets, Returns array of elements with associated score
+
+    KEYS pattern:-
+        - Returns all keys that match a specified pattern
+        - Should be avoided in production environment
+
+            Supported glob-style patterns:-
+                - ? -> H?llo matches hello hallo and hxllo, (one character)
+                - * -> h*llo matches hello heeello hdddllo (any no. of characters)
+                - [] -> h[ae]llo matches hallo , hello but not hillo
+                - [^] -> h[^e]llo matches hallo hbllo but not hello
+                - [a-b] -> h[a-b]llo matches hallo and hbllo
+
+            use \ to escape special characters if you want to match them 
+
+            KEYS * 
+
+    RANDOMKEY:-
+            Returns random key from the database

@@ -1,0 +1,72 @@
+
+
+    SETS:-
+        - Unordered collection of Strings
+        - Can add,remove and test for existance
+        - Do NOT allow repeating members
+        - Supports server side commands to comppute sets starting from existing sets
+
+        Commands:-
+
+            SADD:- 
+                - adds given value to the list
+                - values that already exist will be ignored
+
+                    SADD carmakers "Toyota" // adds Toyota to carmakers set
+
+            SREM :-
+                - Removes values from the set 
+                     
+                    SREM carmakers "Honda" // removes Honda from set
+
+            SISMEMBER :-
+                - Tests if the given value is in the set
+                - Returns 1 if the value is there, 0 if it is not
+
+                    SISMEMBER carmakers "Honda"
+                        0
+
+                    SISMEMBER carmakers "Toyota"
+                        1
+
+            SMEMBERS :-
+                - Returns a list of all the elements of a set
+
+                SMEMBERS carmakers
+
+            SCARD :-
+                - Returns the count of the members/elements of the set
+                - Returns 0 is the key doesn't exists
+
+                    SCARD carmakers
+
+            SMOVE :-
+                - moves member from one set to another
+
+                    SMOVE people user "John"
+
+            SUNION :-
+                - Combines twoor more sets and returns combined set
+
+                    SUNION carmakers truckmaker
+
+            SDIFF :-
+                - Returns the members of the set resulting from the difference between the first and all
+                    successive sets
+                - keys that do not exist are considered empty set
+
+                    SDIFF set1 set2
+
+            SRANDMEMBER :-
+                - returns a random number of the list
+                - Optional parameter to return a specified count
+
+                    SRANDMEMBER carmakers
+                    SRANDMEMBER carmakers 3
+
+            SPOP :-
+                - Removes and return random member from a specified set
+                - Like SRANDMEMBER, a seconds parameter is allowed to specify a count of members
+
+                    SPOP carmakers
+                    SPOP carmakers 3

@@ -1,0 +1,119 @@
+
+
+    DATA PERSISTANCE :-
+        - Datasets are all stored in memory, make data retrieval fast
+        - Datasets can be saved to DISK
+        - Redis fork - Creating child processes which are an exact xopy of the parent
+        - Copy - On - Write snapshot
+
+            persistence Process :-
+                - client sends write commands to database(client memory)
+                - Database revieves the write (server memory)
+                - Database calls system call that writes data to the disk (Kernel buffer)
+                - The OS transfers the write buffer to the disk controller (Disk Cache)
+                - Disk controller writes to physical medis (physical Disk)
+
+            Pools :-
+             - Multiple Redis servers running on the same machine using different projects
+                - Efficient memory usage
+                - More CPUs
+                - Better fine-tuning
+
+            Replication :-
+                - Simple master server replication allows slave Redis server to be copies of master server
+                    - Asynchronous replication
+                    - Multiple slaves
+                    - connection fromother slaves
+                    - Non blocking on slave side
+                    - Scalability and data redundancy
+                    - slave read-only
+
+                Replication process:-
+                    - Master starts saving in the background and starts buffering all new commands that will
+                        mdodify the Datasets
+                    - After background saving the master transfers the database file to the slave
+                    - The slave saves the files to the disk and loads it into memory
+                    - The master sends all buffered commands to the slave
+
+                persistence Options:-
+                    - RDB - Point-in-time snapshots
+                    - AOF - (Append only file) Write operation logging
+                    - Disable
+                    - Both RDB and AOF
+
+    RDB and Snapshotting :-
+        - RDB - Redis Database file
+            - Simple persistence Model
+            - Enabled by default
+            - Single-file point-in-time representation
+            - uses snapshots
+
+        RDB Advantages:-
+            - Easy to use
+            - Very compact
+            - Perfect for backup and recovery
+            - Maximizes Redis performance
+            - Allows faster restart with big datasets compared to AOF
+
+        Snapshotting :-
+            - controlled by the user
+            - Can be modified at runtime
+            - snapshotsare produced as .rdb files
+            - SAVE and BGSAVE Commands
+
+            SAVE:-
+                - Performs a synchronous save of the dataset producing a point-in-time snapshot
+                    af all data inside of the Redis instance in the form of an .rdb file
+                - Should not be called in the production environment as it will block all other clients 
+                    instead use BGSAVE
+
+                        SAVE 60 100
+                            Dump dataset to disk every 60 seconds if at least 100 keys changed
+
+            BGSAVE:-
+                Saves the DB in the background and the parent continues to serve client
+
+        RDB Disadvantages :-
+            - Limited to save points
+            - Not good if you want to minimize the chance of data loss if Redis stops working
+            - Needs to fork() often which can be time consuming and can wear an CPU performance
+
+        
+    AOF - Append Only File :-
+        - Main persistence options (much more reliable than RDB)
+        - Every operation gets logged
+        - Log id the same format used by clients
+        - Can be piped to another instance
+        - Dataset can be reconstructed (using logs and instruction)
+
+        AOF - Rewrite :-
+            - Used when AOF file gets too big
+            - Rewrite database from scratch
+            - Directly access data in memory
+            - No need for disk access
+            - Once written, the temp file is synched in to disk
+
+        fsync policies:-
+            - No fsync - Done by OS, Usually every 30s or so
+            - fsync every second (default)
+            - fsync at every query (slow)
+
+        AOF Advantages:-
+            - Much more durable
+            - Single file no corruption
+            - Automatically Rewrites in the background if it gets too big
+            - Easy to understand log/instruction
+
+        AOF Disadvantages :-
+            - Takes longer to load in memory on server restart
+            - Usually bigger than the Equivalant RDB files
+            - Can be slower than RDB depending on the fsync policy
+            - More possible bugs
+
+    RDB and AOF action :-
+
+        - to locate the rdb files (locate *.rdb) 
+
+        in RDB - SAVE will save the data to file
+
+        rdiff-backup , program which do this Automatically

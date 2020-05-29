@@ -1,0 +1,77 @@
+What is Redis?
+    Redis is an open source, IN-MEMORY DATA STRUCTURE STORE, used as  database, cache and message store.
+    It is NoSQL, key/value pair
+
+Is it like MongoDB?
+    - Redis is similar to mongodb in that it is NoSQL  and could be used for similar key/value access.
+    - MongoDB is a DISK-BASED document store while Redis is MEMORY-BASED
+    - Redis is used for Caching
+
+Is it like Memcached?
+    - It is similat to Memcached in that the data is stored in memory
+    - Memcached uses valatile cache, therefore the data does not get persistent, and is lost with restart.
+        Redis uses built-in persistence and will not disappear with a restart.
+
+Main configuration file : redis.conf
+Redis doesn't uses it own encryption
+How we represent our data is the main goal while planning redis data Structure
+
+DataTypes:-
+    The DataTypes that redis allowa is one of its best feature
+    
+    Strings
+    Hashes
+    Lists
+    Sets
+    Sorted Sets
+    Bitmaps
+    Hyperlogs
+    Geospacial
+    Indexes
+
+Scaling and Partitioning:-
+    - Not the easiest thing to do
+    - Has gotten better
+    - Depends on using redis as cache or data store
+    - Partitioning : spit data among multiple Redis instances
+
+
+General Security Model:-
+    - Designed to be accessed by trusted clients inside trusted environment
+    - Not Usually a good idea to expose  redis directly  
+    - Clients inside front-end of a web application will query redis
+    - Not optimized for max security but for max performance
+
+Data Structure Server:-
+    - Redis doesn't serve raw data
+    - No schema and column names
+    - Take advantage of Speed
+
+What is difference?
+    - Traditional db's:  scan entire table or entire Index
+    - Redis: direct data retrieval commands
+    - No internal query engine
+    - You decide how to store and retrieve data
+
+Data retrival:-
+    - Do values need key?  
+    - Multiple fields to one key?
+    - Counts elements under one collection?
+    - storing objects?
+    - increasing / decreasing order needed?
+    - Unique values?
+    - Testing if value exists?
+
+Custom indexing:-
+    - Reading data by more than one retrieval key (create custom index)
+
+        User: [UserId]
+        User: [Name]
+
+        GET UserName: [Name]
+
+Data Storage:-
+    - Different than SQL
+    - Store data you KNOW you will use
+    - Explicit reading NOT random discovery
+    - Data stored in live memory

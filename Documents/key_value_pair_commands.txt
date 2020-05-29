@@ -1,0 +1,79 @@
+
+Key - Value Pair commands:-
+    $ MSET :-
+        - Set multiple keys to respective value
+        - Replaces existing values with new ones
+
+            MSET key1 "val1" key2 "val2"
+
+    $ MSETNX :- 
+        - sets multiple keys to respective values as long as none of the keys exists
+        - will NOT overwrite existing values
+        - Will NOT perform even a single key alredy exists
+
+            MSETNX key1 "val1" key2 "val2"
+
+    $ MGET :-
+        - Returns values of all the specified keys
+        - Nill is returned if the key doesn't hold a value
+
+            MGET key1 key2
+        
+    $ APPEND :-
+        - If key already exists and is a string, the value will be get appended at the end of the string
+        - if the key doesn'e exists,it works as SET
+
+            APPEND mykey "string_to_append"
+
+    $  GETRANGE :-
+        - Return the substring of a given value
+        - Determined by offset start and end 
+        - Negative offsets can be used to start from the end of the string
+
+            GETRANGE mykey 0-1
+
+    $ RENAME :-
+        - Renames a key
+        - Returns error if key doesn't exists
+        - if it exists, it is overwritten
+
+            RENAME mykey myrenamedkey
+
+    $ RENAMENX :-
+        - renames key to newkey if newkey doesn't exists
+        - Returns an error if ket doesn't exist
+
+            RENAMENX mykey myrenamedkey
+
+    $ GETSET :-
+        - Automatically sets key to value and returns the old value
+        - Returns null when key doesn't exists
+        - Can be used with INCR for counting the automatic respective
+
+            GETSET m "myval"
+
+    $ SETEX :-
+        - set key to hold a value and timeout after a given amount of seconds
+            SETEX mykey 10 "hello"
+
+        Equivalant to 
+            SET mykey "Hello"
+            EXPIRE mykey 10
+
+    $ PSETEX :-
+        - Same as SETEX except that it uses milliseconds instead of seconds
+
+            PSETEX mykey 1000 "hello"
+
+            PTTL is used to get remaining time in milliseconds
+    
+    $ PERSIST :-
+        -Remove existing timeout on a key
+
+            PERSIST mykey
+    
+    $ SETNX :-
+        - Works like set if the key doesn't exists
+        - if the key already exists, it will not change that
+    
+            SETNX mykey "hello"
